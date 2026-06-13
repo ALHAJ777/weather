@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>My Portfolio</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Segoe UI, sans-serif;
+}
+
+body{
+    background:#0f172a;
+    color:white;
+    padding:40px;
+}
+
+header{
+    text-align:center;
+    margin-bottom:40px;
+}
+
+header h1{
+    font-size:3rem;
+    color:#38bdf8;
+}
+
+header p{
+    color:#94a3b8;
+}
+
+#projects{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+    gap:20px;
+}
+
+.card{
+    background:#1e293b;
+    border-radius:15px;
+    padding:20px;
+    transition:.3s;
+}
+
+.card:hover{
+    transform:translateY(-5px);
+    box-shadow:0 0 20px rgba(56,189,248,.3);
+}
+
+.card h2{
+    color:#38bdf8;
+    margin-bottom:10px;
+}
+
+.card p{
+    color:#cbd5e1;
+    margin-bottom:10px;
+}
+
+.btn{
+    display:inline-block;
+    background:#38bdf8;
+    color:black;
+    text-decoration:none;
+    padding:10px 15px;
+    border-radius:8px;
+    font-weight:bold;
+}
+
+.lang{
+    color:#22c55e;
+    margin-bottom:10px;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <h1>My GitHub Portfolio</h1>
+    <p>Auto Updated Using GitHub API</p>
+</header>
+
+<div id="projects"></div>
+
+<script>
+fetch("projects.json")
+.then(response => response.json())
+.then(data => {
+
+    const container = document.getElementById("projects");
+
+    data.forEach(project => {
+
+        container.innerHTML += `
+        <div class="card">
+
+            <h2>${project.name}</h2>
+
+            <p>${project.description || "No description available"}</p>
+
+            <div class="lang">
+                ${project.language || "Unknown Language"}
+            </div>
+
+            <a class="btn"
+               href="${project.url}"
+               target="_blank">
+               View Repository
+            </a>
+
+        </div>
+        `;
+    });
+
+});
+</script>
+
+</body>
+</html>
